@@ -1,5 +1,13 @@
+import { Routes, Route } from 'react-router-dom'
+import SignIn from './features/SignIn'
 const App = () => {
-  return <h1 className="text-red-600">Hello</h1>
+  return (
+    <div className="bg-slate-800 h-screen">
+      <Routes>
+        <Route path="/signIn" element={<SignIn />} />
+      </Routes>
+    </div>
+  )
 }
 
 export default App
