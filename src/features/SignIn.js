@@ -1,25 +1,36 @@
 import { Link } from 'react-router-dom'
 import Input from '../components/Input'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 const SignIn = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(true)
   return (
-    <div className="flex items-center justify-center py-24 px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 duration-500">
+      {error && (
+        <div className="p-4  flex justify-center">
+          <span className="text-red-600">
+            Username or password are incorrect
+          </span>
+        </div>
+      )}
       <div className="flex flex-col w-[500px] gap-2 p-4 m-2 bg-slate-700 border border-pink-200 rounded-xl shadow-lg shadow-pink-200">
         <div className="flex flex-col gap-2 font-small m-2 ">
           <label className="text-white"> Username</label>
           <Input
             value={username}
+            onFocus={() => setError(false)}
             onChange={(e) => setUsername(e.target.value)}
             id="username"
             type="email"
+            classes={error ? 'border-red-600' : ''}
           />
         </div>
         <div className="flex flex-col gap-2 font-small m-2">
           <label className="text-white"> Password</label>
           <Input
-            classes={'text-pink-200'}
+            classes={`text-pink-200 ${error ? 'border-red-600' : ''}`}
+            onFocus={() => setError(false)}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
