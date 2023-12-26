@@ -17,7 +17,7 @@ const SignIn = () => {
       )}
       <div className="flex flex-col w-[500px] gap-2 p-4 m-2 bg-slate-700 border border-pink-200 rounded-xl shadow-lg shadow-pink-200">
         <div className="flex flex-col gap-2 font-small m-2 ">
-          <label className="text-white"> Username</label>
+          <label className="text-white"> Email</label>
           <Input
             value={username}
             onFocus={() => setError(false)}
