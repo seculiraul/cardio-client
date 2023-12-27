@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Input from '../components/Input'
 import PrimaryButton from '../components/buttons/PrimaryButton'
 import { Link } from 'react-router-dom'
+import { Transition } from '@headlessui/react'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
@@ -43,11 +44,11 @@ const SignUp = () => {
   }, [password, passwordConf])
 
   useEffect(() => {
-    setValidFirstName(firstName.length > 2)
+    setValidFirstName(firstName.length > 1)
   }, [firstName])
 
   useEffect(() => {
-    setValidLastName(lastName.length > 2)
+    setValidLastName(lastName.length > 1)
   }, [lastName])
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const SignUp = () => {
         : '',
       ariaInvalid: validEmail ? 'true' : 'false',
       ariaDescribedby: 'uidnote',
-      paragraphText: ['Email is not valid'],
+      paragraphText: ['Emailul nu este valid'],
     },
     {
       id: 'pwd',
@@ -85,7 +86,13 @@ const SignUp = () => {
       extraClasses: validPwd ? ' border-green-500 focus:border-green-500' : '',
       ariaInvalid: validPwd ? 'true' : 'false',
       ariaDescribedby: 'uidnote',
-      paragraphText: ['Email is not valid'],
+      paragraphText: [
+        'Parola trebuie sa contina',
+        'Cel putin o litera mare',
+        'Cel putin o litera mica',
+        'Cel putin o cifra',
+        'Minim 6 caracter in total',
+      ],
     },
     {
       id: 'pwdConf',
@@ -102,7 +109,7 @@ const SignUp = () => {
         : '',
       ariaInvalid: validPwdConf ? 'true' : 'false',
       ariaDescribedby: 'uidnote',
-      paragraphText: ['Email is not valid'],
+      paragraphText: ['Parolele nu corespund'],
     },
     {
       id: 'firstName',
@@ -119,7 +126,7 @@ const SignUp = () => {
         : '',
       ariaInvalid: validFirstName ? 'true' : 'false',
       ariaDescribedby: 'uidnote',
-      paragraphText: ['Email is not valid'],
+      paragraphText: ['Prenumele este prea scurt'],
     },
     {
       id: 'lastName',
@@ -136,7 +143,7 @@ const SignUp = () => {
         : '',
       ariaInvalid: validLastName ? 'true' : 'false',
       ariaDescribedby: 'uidnote',
-      paragraphText: ['Email is not valid'],
+      paragraphText: ['Numele este prea scurt'],
     },
     {
       id: 'cnp',
@@ -151,7 +158,7 @@ const SignUp = () => {
       extraClasses: validCnp ? ' border-green-500 focus:border-green-500' : '',
       ariaInvalid: validCnp ? 'true' : 'false',
       ariaDescribedby: 'uidnote',
-      paragraphText: ['Email is not valid'],
+      paragraphText: ['CNP ul nu este valid'],
     },
   ]
 
@@ -172,33 +179,37 @@ const SignUp = () => {
           onBlur={input?.onBlur}
           classes={`text-pink-200 ${input?.extraClasses}`}
         />
-        {input?.focus && input?.value && !input?.validation ? (
-          <p>
-            {input?.paragraphText?.map((text) => (
-              <span key={text}>
-                {text}
-                <br />
-              </span>
-            ))}
-          </p>
-        ) : (
-          <></>
-        )}
+        <Transition
+          show={!!(input?.focus && input?.value && !input?.validation)}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-300"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          {input?.paragraphText?.map((text) => (
+            <span className="text-red-600 font-medium" key={text}>
+              {text}
+              <br />
+            </span>
+          ))}
+        </Transition>
       </div>
     )
   })
   return (
-    <div className="flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 duration-500">
+    <div className="flex flex-col items-center justify-center bg-slate-900 py-24 px-4 sm:px-6 lg:px-8 duration-500">
       <div className="flex flex-col w-[500px] gap-2 p-4 m-2 bg-slate-700 border border-pink-200 rounded-xl shadow-lg shadow-pink-200">
         {mapInputs}
-        <PrimaryButton classes="my-4">Sign In</PrimaryButton>
+        <PrimaryButton classes="my-2">Inregistrare</PrimaryButton>
         <div className="flex flex-col mx-auto mt-2 items-center">
-          <span className="mb-4 text-white">or</span>
+          <span className="mb-4 text-white">sau</span>
           <Link
             className="text-pink-200 hover:text-pink-300 duration-300"
             to={'/signUp'}
           >
-            Register now
+            Intra in cont
           </Link>
         </div>
       </div>
