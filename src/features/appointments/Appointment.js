@@ -1,3 +1,4 @@
+import DatePicker from '../../components/DatePicker'
 import Dropdown from '../../components/Dropdown'
 
 const Appointment = () => {
@@ -10,6 +11,7 @@ const Appointment = () => {
   const onItemPicked = (opt) => {
     console.log(opt)
   }
+  const dates = ['14:00', '14:30', '15:00', '15:30', '16:00', '17:00']
   return (
     <div className="flex flex-col items-center justify-center">
       <label className="mx-auto p-2 text-pink-300 font-large">
@@ -27,7 +29,7 @@ const Appointment = () => {
         </div>
         <div className="flex flex-col gap-2 my-2">
           <label className="text-pink-300 p-2">Selecteaza Data</label>
-          <input className="bg-pink-200 p-2 text-black" type="datetime-local" />
+          <DatePicker dates={dates} />
         </div>
       </form>
     </div>
