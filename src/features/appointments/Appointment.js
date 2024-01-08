@@ -1,3 +1,4 @@
+import Calendar from '../../components/Calendar'
 import DatePicker from '../../components/DatePicker'
 import Dropdown from '../../components/Dropdown'
 
@@ -31,6 +32,7 @@ const Appointment = () => {
           <label className="text-pink-300 p-2">Selecteaza Data</label>
           <DatePicker dates={dates} />
         </div>
+        <Calendar />
       </form>
     </div>
   )
