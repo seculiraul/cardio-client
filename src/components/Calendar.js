@@ -14,7 +14,7 @@ import {
 } from 'date-fns'
 import { useState } from 'react'
 
-const Calendar = () => {
+const Calendar = ({ onDatePicked }) => {
   const today = startOfToday()
   const [selectedDay, setSelectedDay] = useState(today)
   const [month, setMonth] = useState(format(today, 'MMM-yyyy'))
@@ -26,6 +26,7 @@ const Calendar = () => {
       return
     }
     setSelectedDay(day)
+    onDatePicked(format(day, 'dd-MM-yyyy'))
   }
 
   const newDays = eachDayOfInterval({
