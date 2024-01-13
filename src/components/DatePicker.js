@@ -1,20 +1,34 @@
 import { Transition } from '@headlessui/react'
+import Calendar from './Calendar'
 import { useState } from 'react'
 
-const DatePicker = ({ dates }) => {
+const DatePicker = ({ active, onDateConfirmed }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [dateSalected, setDateSelected] = useState('')
 
-  const onDropdownClick = (e) => {
+  const handleOnClick = (e) => {
     e.preventDefault()
-    setIsOpen((prev) => !prev)
+    if (!active) return
+    setIsOpen(true)
+  }
+
+  const onDatePicked = (val) => {
+    setDateSelected(val)
+    setIsOpen(false)
+    onDateConfirmed(val)
   }
   return (
-    <div className="relative">
+    <>
       <button
-        onClick={(e) => onDropdownClick(e)}
-        className="bg-pink-200 p-2 mb-2 w-full flex items-center justify-between font-bold rounded-lg tracking-wider border-4 border-transparent active:border-white active:text-black duration-300"
+        onClick={(e) => handleOnClick(e)}
+        className={`bg-pink-200 p-2 mb-2 w-full flex items-center justify-between font-bold rounded-lg tracking-wider border-4 border-transparent  duration-300 
+        ${
+          active
+            ? 'active:border-white active:text-black'
+            : 'cursor-not-allowed opacity-70'
+        }`}
       >
-        Selecteaza data
+        {dateSalected || 'Selectati Data'}
       </button>
       <Transition
         show={isOpen}
@@ -24,19 +38,10 @@ const DatePicker = ({ dates }) => {
         leave="ease-in duration-300"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
-        className="absolute top-14 p-4 bg-pink-300 w-[300px] rounded-lg grid grid-cols-3 gap-2"
       >
-        {dates.map((date, i) => (
-          <span
-            onClick
-            key={i}
-            className="font-bold mx-auto rounded-xl p-2 cursor-pointer hover:bg-pink-100 duration-300"
-          >
-            {date}
-          </span>
-        ))}
+        <Calendar onDatePicked={onDatePicked} />
       </Transition>
-    </div>
+    </>
   )
 }
 
