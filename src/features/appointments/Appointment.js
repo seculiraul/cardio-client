@@ -2,6 +2,7 @@ import { useState } from 'react'
 import DatePicker from '../../components/DatePicker'
 import Dropdown from '../../components/Dropdown'
 import TimePicker from '../../components/TimePicker'
+import PrimaryButton from '../../components/buttons/PrimaryButton'
 
 const Appointment = () => {
   const [step, setStep] = useState(0)
@@ -23,18 +24,27 @@ const Appointment = () => {
 
   const onTimedConfirmed = (time) => {
     console.log(time)
+    setStep(3)
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    if (step < 3) return
+    console.log('programare efectuata')
   }
 
   const dates = ['14:00', '14:30', '15:00', '15:30', '16:00', '17:00']
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center mx-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl duration-500">
       <label className="mx-auto p-2 text-pink-300 font-large">
         Efectureaza o programare
       </label>
 
-      <form className="p-2 m-2">
+      <form className="w-full flex flex-col gap-4 p-4 m-2 border border-pink-200 rounded-xl md:p-6 lg:p-8 duration-500">
         <div className="flex flex-col gap-2">
-          <label className="text-pink-300 text-xl p-2">Medicul</label>
+          <label className="text-pink-300 text-xl p-2">
+            1. Selecteaza Medicul
+          </label>
           <Dropdown
             list={doctorList}
             onItemPicked={onItemPicked}
@@ -42,16 +52,26 @@ const Appointment = () => {
           />
         </div>
         <div className="flex flex-col gap-2 my-2">
-          <label className="text-pink-300 text-xl p-2">Data</label>
+          <label className="text-pink-300 text-xl p-2">
+            2. Selecteaza Data
+          </label>
           <DatePicker active={step > 0} onDateConfirmed={onDateConfirmed} />
         </div>
         <div className="flex flex-col gap-2 my-2">
-          <label className="text-pink-300 text-xl p-2">Ora</label>
+          <label className="text-pink-300 text-xl p-2">3. Selecteaza Ora</label>
           <TimePicker
             dates={dates}
             active={step > 1}
             onTimePicked={onTimedConfirmed}
           />
+        </div>
+        <div className="flex justify-end my-2 p-2">
+          <PrimaryButton
+            onClick={(e) => onSubmit(e)}
+            classes={step > 2 ? '' : 'cursor-not-allowed opacity-70'}
+          >
+            Efectueaza Programarea
+          </PrimaryButton>
         </div>
       </form>
     </div>
