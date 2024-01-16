@@ -5,7 +5,7 @@ import Navbar from './components/Navbar'
 import Appointment from './features/appointments/Appointment'
 const App = () => {
   return (
-    <div className="bg-slate-900 h-screen">
+    <div className="bg-slate-900 h-[300vh]">
       <Navbar />
       <Routes>
         <Route path="/signIn" element={<SignIn />} />
