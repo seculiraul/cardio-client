@@ -6,6 +6,8 @@ import PrimaryButton from '../../components/buttons/PrimaryButton'
 
 const Appointment = () => {
   const [step, setStep] = useState(0)
+  const [details, setDetails] = useState({ doctor: '', date: '', time: '' })
+
   const doctorList = [
     { title: 'doctor 1', value: 1 },
     { title: 'doctor2', value: 2 },
@@ -14,23 +16,35 @@ const Appointment = () => {
 
   const onItemPicked = (opt) => {
     console.log(opt)
+    setDetails((prev) => ({
+      ...prev,
+      doctor: opt,
+    }))
     setStep(1)
   }
 
   const onDateConfirmed = (date) => {
     console.log(date)
+    setDetails((prev) => ({
+      ...prev,
+      date,
+    }))
     setStep(2)
   }
 
   const onTimedConfirmed = (time) => {
     console.log(time)
+    setDetails((prev) => ({
+      ...prev,
+      time,
+    }))
     setStep(3)
   }
 
   const onSubmit = (e) => {
     e.preventDefault()
     if (step < 3) return
-    console.log('programare efectuata')
+    console.log(details)
   }
 
   const dates = ['14:00', '14:30', '15:00', '15:30', '16:00', '17:00']
@@ -68,7 +82,9 @@ const Appointment = () => {
         <div className="flex justify-end my-2 p-2">
           <PrimaryButton
             onClick={(e) => onSubmit(e)}
-            classes={step > 2 ? '' : 'cursor-not-allowed opacity-70'}
+            classes={
+              step > 2 ? 'hover:bg-pink-300' : 'cursor-not-allowed opacity-70'
+            }
           >
             Efectueaza Programarea
           </PrimaryButton>

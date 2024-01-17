@@ -17,7 +17,7 @@ const TimePicker = ({ dates, active, onTimePicked }) => {
     onTimePicked(h)
   }
   return (
-    <div className="relative">
+    <div>
       <button
         onClick={(e) => onDropdownClick(e)}
         className={`bg-pink-200 p-2 mb-2 w-full flex items-center justify-between font-bold rounded-lg tracking-wider border-4 border-transparent active:border-white active:text-black duration-300 
@@ -37,7 +37,7 @@ const TimePicker = ({ dates, active, onTimePicked }) => {
         leave="ease-in duration-300"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
-        className="absolute top-14 p-4 bg-pink-300 w-[300px] rounded-lg grid grid-cols-3 gap-2"
+        className="p-4 bg-pink-300 max-w-md md:max-w-lg lg:max-w-2xl rounded-lg grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 duration-300"
       >
         {dates.map((date, i) => (
           <span
