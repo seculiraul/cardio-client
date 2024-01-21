@@ -9,7 +9,7 @@ const DatePicker = ({ active, onDateConfirmed }) => {
   const handleOnClick = (e) => {
     e.preventDefault()
     if (!active) return
-    setIsOpen(true)
+    setIsOpen((prev) => !prev)
   }
 
   const onDatePicked = (val) => {
