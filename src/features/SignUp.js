@@ -199,7 +199,7 @@ const SignUp = () => {
     )
   })
   return (
-    <div className="flex flex-col items-center justify-center bg-slate-900 py-24 px-4 sm:px-6 lg:px-8 duration-500">
+    <div className="flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 duration-500">
       <div className="flex flex-col w-[500px] gap-2 p-4 m-2 bg-slate-700 border border-pink-200 rounded-xl shadow-lg shadow-pink-200">
         {mapInputs}
         <PrimaryButton classes="my-2">Inregistrare</PrimaryButton>

@@ -3,10 +3,12 @@ import DatePicker from '../../components/DatePicker'
 import Dropdown from '../../components/Dropdown'
 import TimePicker from '../../components/TimePicker'
 import PrimaryButton from '../../components/buttons/PrimaryButton'
+import { Transition } from '@headlessui/react'
 
 const Appointment = () => {
   const [step, setStep] = useState(0)
   const [details, setDetails] = useState({ doctor: '', date: '', time: '' })
+  const [isOpen, setIsOpen] = useState(false)
 
   const doctorList = [
     { title: 'doctor 1', value: 1 },
@@ -44,6 +46,7 @@ const Appointment = () => {
   const onSubmit = (e) => {
     e.preventDefault()
     if (step < 3) return
+    setIsOpen(true)
     console.log(details)
   }
 
@@ -53,6 +56,21 @@ const Appointment = () => {
       <label className="mx-auto p-2 text-pink-300 font-large">
         Efectureaza o programare
       </label>
+
+      <Transition
+        show={isOpen}
+        enter="ease-out duration-300"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="ease-in duration-300"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+        sta
+      >
+        <p className="w-full p-4 m-2 bg-pink-200 text-black rounded-lg">
+          Programare efectuata cu success
+        </p>
+      </Transition>
 
       <form className="w-full flex flex-col gap-4 p-4 m-2 border border-pink-200 rounded-xl md:p-6 lg:p-8 duration-500">
         <div className="flex flex-col gap-2">
